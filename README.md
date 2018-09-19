@@ -2,7 +2,7 @@
 Process manager written in golang
 
 Examples:
-
+```
 gop start <cmd> <args> //Starts a process in the manager (random instance name)
 gop start <cmd> <args> -n <name> //Starts a named process in the manager
 
@@ -20,7 +20,9 @@ gop remove <service> //removes a service
 
 gop list //Get a list of all services and running process instances
 gop log  //Get the logs for the dameons current session
-
+```
 Extra flags:
+```
 -v //voberse output
 -r //Relitive path. Defaultly gop will change your cmd to its absolue path. This will stop that. (for things in the bin folder or for dameons not on the local machine)
+```
