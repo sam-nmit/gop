@@ -179,3 +179,12 @@ func (pm *PM) StopInstance(name string) error {
 	}
 	return i.cmd.Process.Kill()
 }
+
+func (pm *PM) Shutdown(closeProcs bool) {
+	if closeProcs {
+		for _, p := range pm.Processes {
+			p.cmd.Process.Kill()
+		}
+	}
+	close(pm.ProcessExits)
+}

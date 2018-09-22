@@ -61,8 +61,7 @@ func (d *Dameon) Start(netinterface string) error {
 }
 
 func (d *Dameon) monitorProcs() {
-	for {
-		procClose := <-d.pm.ProcessExits
+	for procClose := range d.pm.ProcessExits {
 		log.Println("Process ended [", procClose.Proc.InstanceName, "]:", procClose.Error)
 	}
 }
@@ -89,7 +88,8 @@ func (d *Dameon) SetLogging() error {
 }
 
 // Stop shuts down the rpc server and releases the lock file.
-func (d *Dameon) Stop() {
+func (d *Dameon) Stop(closeProcs bool) {
 	d.lockfile.Unlock()
 	d.listener.Close()
+	d.pm.Shutdown(closeProcs)
 }
